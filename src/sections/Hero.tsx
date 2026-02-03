@@ -155,10 +155,16 @@ function FloatingCard({
   );
 }
 
+import VideoModal from '@/components/VideoModal';
+import videoUrl from '@/assets/video/Energy_Intelligence.mp4';
+
+// ... existing code ...
+
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [index, setIndex] = useState(0);
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -300,6 +306,7 @@ export default function Hero() {
               <Button
                 size="lg"
                 variant="outline"
+                onClick={() => setIsVideoOpen(true)}
                 className="border-white/20 text-white hover:bg-white/5 px-8 py-6 text-lg font-semibold group"
               >
                 <Play className="w-5 h-5 mr-2 text-cyan-400" />
@@ -421,6 +428,12 @@ export default function Hero() {
 
       {/* Bottom Gradient Fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent pointer-events-none" />
+      {/* Video Modal */}
+      <VideoModal
+        isOpen={isVideoOpen}
+        onClose={() => setIsVideoOpen(false)}
+        videoSrc={videoUrl}
+      />
     </section>
   );
 }

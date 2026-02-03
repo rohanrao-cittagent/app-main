@@ -20,9 +20,13 @@ const slides = [
     }
 ];
 
+import VideoModal from '@/components/VideoModal';
+import videoUrl from '@/assets/video/Energy_Intelligence.mp4';
+
 export default function TrustedBy() {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [direction, setDirection] = useState(0);
+    const [isVideoOpen, setIsVideoOpen] = useState(false);
 
     const nextSlide = () => {
         setDirection(1);
@@ -103,6 +107,7 @@ export default function TrustedBy() {
                                         <Button
                                             size="lg"
                                             variant="outline"
+                                            onClick={() => setIsVideoOpen(true)}
                                             className="border-white/30 text-white hover:bg-white/10 rounded-full px-8 py-6 text-lg font-semibold h-auto backdrop-blur-sm"
                                         >
                                             <div className="w-8 h-8 rounded-full border border-white flex items-center justify-center mr-3">
@@ -151,6 +156,12 @@ export default function TrustedBy() {
                     </AnimatePresence>
                 </div>
             </div>
+            {/* Video Modal */}
+            <VideoModal
+                isOpen={isVideoOpen}
+                onClose={() => setIsVideoOpen(false)}
+                videoSrc={videoUrl}
+            />
         </section>
     );
 }
