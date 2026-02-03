@@ -200,8 +200,8 @@ export default function CustomerReviews() {
                   key={index}
                   onClick={() => setCurrentIndex(index)}
                   className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
-                      ? 'w-8 bg-cyan-400'
-                      : 'bg-white/30 hover:bg-white/50'
+                    ? 'w-8 bg-cyan-400'
+                    : 'bg-white/30 hover:bg-white/50'
                     }`}
                 />
               ))}
@@ -218,41 +218,7 @@ export default function CustomerReviews() {
           </div>
         </motion.div>
 
-        {/* Trust Badges */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="mt-16 lg:mt-20"
-        >
-          <div className="glass-enhanced rounded-2xl p-8 border border-white/10">
-            <div className="text-center mb-8">
-              <p className="text-white/60">Trusted by leading manufacturers across India</p>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
-              {[
-                'Tata Steel',
-                'Reliance',
-                'L&T',
-                'Bharat Forge',
-                'Mahindra',
-                'Adani',
-              ].map((company, index) => (
-                <motion.div
-                  key={company}
-                  initial={{ opacity: 0 }}
-                  animate={isInView ? { opacity: 1 } : {}}
-                  transition={{ delay: 0.6 + index * 0.1 }}
-                  className="text-center"
-                >
-                  <div className="text-white/40 font-semibold text-lg hover:text-white/60 transition-colors cursor-default">
-                    {company}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
+
       </div>
     </section>
   );
