@@ -1,6 +1,6 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useMemo, memo } from 'react';
 import { toast } from 'sonner';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence, useMotionValue, useSpring, useInView } from 'framer-motion';
 import { ArrowRight, Play, Sparkles, Activity, TrendingUp, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -11,8 +11,9 @@ const words = [
 ];
 
 // 3D Particle Network Component
-function ParticleNetwork() {
+const ParticleNetwork = memo(function ParticleNetwork() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const isInView = useInView(canvasRef, { margin: "100px" });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -51,6 +52,12 @@ function ParticleNetwork() {
     };
 
     const draw = () => {
+      /* Optimization: only draw if in view */
+      if (!isInView) {
+        animationId = requestAnimationFrame(draw);
+        return;
+      }
+
       ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
 
       // Draw connections
@@ -101,7 +108,7 @@ function ParticleNetwork() {
     return () => {
       cancelAnimationFrame(animationId);
     };
-  }, []);
+  }, [isInView]);
 
   return (
     <canvas
@@ -110,7 +117,7 @@ function ParticleNetwork() {
       style={{ opacity: 0.6 }}
     />
   );
-}
+});
 
 // 3D Floating Card Component
 function FloatingCard({
@@ -163,9 +170,30 @@ import videoUrl from '@/assets/video/Energy_Intelligence.mp4';
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [index, setIndex] = useState(0);
   const [isVideoOpen, setIsVideoOpen] = useState(false);
+
+  // Performance Optimization: Use useMotionValue instead of useState for mouse tracking
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Smooth springs for mouse movement
+  const springX = useSpring(mouseX, { stiffness: 50, damping: 30 });
+  const springY = useSpring(mouseY, { stiffness: 50, damping: 30 });
+
+  // Transformations for background elements based on mouse position
+  const bgX1 = useTransform(springX, (value) => value * 30);
+  const bgY1 = useTransform(springY, (value) => value * 30);
+
+  const bgX2 = useTransform(springX, (value) => -value * 20);
+  const bgY2 = useTransform(springY, (value) => -value * 20);
+
+  const bgX3 = useTransform(springX, (value) => value * 15);
+  const bgY3 = useTransform(springY, (value) => value * 15);
+
+  // Transformations for 3D card
+  const rotateY = useTransform(springX, (value) => value * 10);
+  const rotateX = useTransform(springY, (value) => -value * 10);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -186,16 +214,18 @@ export default function Hero() {
     const handleMouseMove = (e: MouseEvent) => {
       if (containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect();
-        setMousePosition({
-          x: (e.clientX - rect.left - rect.width / 2) / rect.width,
-          y: (e.clientY - rect.top - rect.height / 2) / rect.height,
-        });
+        // Calculate normalized position (-0.5 to 0.5)
+        const x = (e.clientX - rect.left - rect.width / 2) / rect.width;
+        const y = (e.clientY - rect.top - rect.height / 2) / rect.height;
+
+        mouseX.set(x);
+        mouseY.set(y);
       }
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  }, [mouseX, mouseY]);
 
   return (
     <section
@@ -214,27 +244,15 @@ export default function Hero() {
         {/* Gradient Orbs with 3D effect */}
         <motion.div
           className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-blue-500/20 rounded-full blur-[120px]"
-          animate={{
-            x: mousePosition.x * 30,
-            y: mousePosition.y * 30,
-          }}
-          transition={{ type: "spring", stiffness: 50, damping: 30 }}
+          style={{ x: bgX1, y: bgY1 }}
         />
         <motion.div
           className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-purple-500/20 rounded-full blur-[100px]"
-          animate={{
-            x: -mousePosition.x * 20,
-            y: -mousePosition.y * 20,
-          }}
-          transition={{ type: "spring", stiffness: 50, damping: 30 }}
+          style={{ x: bgX2, y: bgY2 }}
         />
         <motion.div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-cyan-400/15 rounded-full blur-[80px]"
-          animate={{
-            x: mousePosition.x * 15,
-            y: mousePosition.y * 15,
-          }}
-          transition={{ type: "spring", stiffness: 50, damping: 30 }}
+          style={{ x: bgX3, y: bgY3 }}
         />
       </motion.div>
 
@@ -352,7 +370,8 @@ export default function Hero() {
               transition={{ duration: 1, delay: 0.3 }}
               className="relative preserve-3d"
               style={{
-                transform: `rotateY(${mousePosition.x * 10}deg) rotateX(${-mousePosition.y * 10}deg)`,
+                rotateY,
+                rotateX,
               }}
             >
               {/* Main 3D Visualization */}

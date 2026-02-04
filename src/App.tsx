@@ -29,7 +29,7 @@ function App() {
     <div ref={containerRef} className="relative min-h-screen bg-background overflow-x-hidden">
       {/* Animated Background */}
       <motion.div
-        className="fixed inset-0 pointer-events-none z-0"
+        className="fixed inset-0 pointer-events-none z-0 will-change-transform"
         style={{ y: backgroundY }}
       >
         {/* Gradient Orbs */}
