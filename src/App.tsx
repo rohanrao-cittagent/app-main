@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import { Toaster } from 'sonner';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import Navbar from './sections/Navbar';
 import Hero from './sections/Hero';
@@ -79,6 +80,7 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
+      <Toaster position="top-center" theme="dark" />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { toast } from 'sonner';
 import { motion, useInView } from 'framer-motion';
 import {
   Mail,
@@ -87,6 +88,15 @@ export default function Footer() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button
                   size="lg"
+                  onClick={() => toast.info("Coming Soon!", {
+                    description: "Free trials will be available shortly.",
+                    style: {
+                      background: 'rgba(2, 12, 27, 0.8)',
+                      backdropFilter: 'blur(16px)',
+                      border: '1px solid rgba(6, 182, 212, 0.2)',
+                      color: '#fff',
+                    }
+                  })}
                   className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white border-0"
                 >
                   Start Free Trial
@@ -95,6 +105,15 @@ export default function Footer() {
                 <Button
                   size="lg"
                   variant="outline"
+                  onClick={() => toast.info("Coming Soon!", {
+                    description: "Demo scheduling will be available shortly.",
+                    style: {
+                      background: 'rgba(2, 12, 27, 0.8)',
+                      backdropFilter: 'blur(16px)',
+                      border: '1px solid rgba(6, 182, 212, 0.2)',
+                      color: '#fff',
+                    }
+                  })}
                   className="border-white/20 text-white hover:bg-white/5"
                 >
                   Schedule Demo

@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
+import { toast } from 'sonner';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Play, Sparkles, Activity, TrendingUp, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -298,6 +299,15 @@ export default function Hero() {
             >
               <Button
                 size="lg"
+                onClick={() => toast.info("Coming Soon!", {
+                  description: "Free trials will be available shortly.",
+                  style: {
+                    background: 'rgba(2, 12, 27, 0.8)',
+                    backdropFilter: 'blur(16px)',
+                    border: '1px solid rgba(6, 182, 212, 0.2)',
+                    color: '#fff',
+                  }
+                })}
                 className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white border-0 px-8 py-6 text-lg font-semibold group"
               >
                 Start Free Trial

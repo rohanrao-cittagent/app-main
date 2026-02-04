@@ -63,8 +63,7 @@ export default function FactoryOps() {
         {/* Process Steps */}
         <div className="relative max-w-5xl mx-auto">
           {/* Vertical Connection Line */}
-          {/* Vertical Connection Line */}
-          <div className="absolute left-[50%] -translate-x-1/2 top-0 bottom-0 w-[2px] bg-white/10 hidden md:block" />
+          <div className="absolute left-[50%] -translate-x-1/2 top-0 bottom-0 w-[2px] bg-white/10 block" />
 
           {/* Step 1: Connect */}
           <div className="relative grid md:grid-cols-2 gap-12 items-center mb-24 last:mb-0">
@@ -73,27 +72,29 @@ export default function FactoryOps() {
               initial={{ opacity: 0, x: -50 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="pr-8 lg:pr-12 order-2 md:order-1 relative group"
+              className="md:pr-8 lg:pr-12 order-2 md:order-1 relative group flex flex-col items-center md:block"
             >
               {/* Horizontal Glow Line (Left) */}
               <div className="absolute top-1/2 right-0 w-full h-[1px] bg-gradient-to-r from-transparent via-emerald-500/50 to-emerald-500 hidden md:block -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-              <div className="relative w-32 h-32 md:w-40 md:h-40 mx-auto md:ml-auto md:mr-0">
-                <div className="absolute inset-0 bg-emerald-500/20 rounded-full blur-3xl animate-pulse" />
-                <div className="relative w-full h-full rounded-full bg-gradient-to-br from-emerald-500/10 to-green-500/10 border border-emerald-500/30 flex items-center justify-center backdrop-blur-sm">
-                  <Plug className="w-12 h-12 md:w-16 md:h-16 text-emerald-400" />
+              <div className="flex flex-col items-center">
+                <div className="relative w-32 h-32 md:w-40 md:h-40 mx-auto md:ml-auto md:mr-0 z-10 bg-gray-950/50 rounded-full backdrop-blur-sm">
+                  <div className="absolute inset-0 bg-emerald-500/20 rounded-full blur-3xl animate-pulse" />
+                  <div className="relative w-full h-full rounded-full bg-gradient-to-br from-emerald-500/10 to-green-500/10 border border-emerald-500/30 flex items-center justify-center backdrop-blur-sm">
+                    <Plug className="w-12 h-12 md:w-16 md:h-16 text-emerald-400" />
+                  </div>
                 </div>
-              </div>
 
-              {/* Mobile Text */}
-              <div className="mt-6 md:hidden text-center">
-                <div className="flex items-center justify-center gap-3 mb-2">
-                  <div className="w-6 h-6 rounded-full bg-emerald-600 flex items-center justify-center text-xs font-bold text-white">1</div>
-                  <h3 className="text-xl font-bold text-emerald-400">Connect</h3>
+                {/* Mobile Text */}
+                <div className="mt-8 md:hidden flex flex-col items-center justify-center text-center w-full z-10 bg-white/5 rounded-2xl p-6 border border-white/10 backdrop-blur-sm">
+                  <div className="flex items-center justify-center gap-3 mb-7">
+                    <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-xs font-bold text-white">1</div>
+                    <h3 className="text-xl font-bold text-blue-400">Connect</h3>
+                  </div>
+                  <p className="text-white/60">
+                    Install non-intrusive sensors on your machinery in under 15 minutes. Plug-and-play compatibility.
+                  </p>
                 </div>
-                <p className="text-white/60">
-                  Install non-intrusive sensors on your machinery in under 15 minutes. Plug-and-play compatibility.
-                </p>
               </div>
             </motion.div>
 
@@ -102,7 +103,7 @@ export default function FactoryOps() {
               initial={{ scale: 0 }}
               animate={isInView ? { scale: 1 } : {}}
               transition={{ duration: 0.5, delay: 0.5 }}
-              className="absolute left-[50%] top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex items-center justify-center w-6 h-6 rounded-full bg-gray-900/50 backdrop-blur-md border-2 border-emerald-500 z-10 box-content shadow-[0_0_15px_rgba(16,185,129,0.8)]"
+              className="absolute left-[50%] top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex items-center justify-center w-6 h-6 rounded-full bg-gray-900/50 backdrop-blur-md border-2 border-blue-500 z-10 box-content shadow-[0_0_15px_rgba(59,130,246,0.8)]"
             />
 
             {/* Right Content - Text */}
@@ -113,18 +114,21 @@ export default function FactoryOps() {
               className="text-left pl-8 lg:pl-12 hidden md:block order-1 md:order-2 relative group"
             >
               {/* Horizontal Glow Line (Right) */}
-              <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-l from-transparent via-emerald-500/50 to-emerald-500 hidden md:block -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-l from-transparent via-blue-500/50 to-blue-500 hidden md:block -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-              <div className="flex items-center justify-start gap-4 mb-4">
-                <div className="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center font-bold text-white shadow-[0_0_10px_rgba(5,150,105,0.5)]">
-                  1
+              {/* Card Container */}
+              <div className="bg-white/5 rounded-2xl p-8 border border-white/10 backdrop-blur-sm hover:border-blue-500/30 transition-colors">
+                <div className="flex items-center justify-start gap-4 mb-4">
+                  <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center font-bold text-white shadow-[0_0_10px_rgba(37,99,235,0.5)]">
+                    1
+                  </div>
+                  <h3 className="text-2xl font-bold text-blue-400">Connect</h3>
                 </div>
-                <h3 className="text-2xl font-bold text-emerald-400">Connect</h3>
+                <p className="text-white/60 leading-relaxed">
+                  Install non-intrusive sensors on your machinery in under 15 minutes. Plug-and-play compatibility
+                  with 99% of legacy equipment.
+                </p>
               </div>
-              <p className="text-white/60 leading-relaxed">
-                Install non-intrusive sensors on your machinery in under 15 minutes. Plug-and-play compatibility
-                with 99% of legacy equipment.
-              </p>
             </motion.div>
           </div>
 
@@ -139,18 +143,21 @@ export default function FactoryOps() {
               className="text-right pr-8 lg:pr-12 hidden md:block relative group"
             >
               {/* Horizontal Glow Line (Left) */}
-              <div className="absolute top-1/2 right-0 w-full h-[1px] bg-gradient-to-r from-transparent via-emerald-500/50 to-emerald-500 hidden md:block -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute top-1/2 right-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-500/50 to-blue-500 hidden md:block -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-              <div className="flex items-center justify-end gap-4 mb-4">
-                <div className="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center font-bold text-white shadow-[0_0_10px_rgba(5,150,105,0.5)]">
-                  2
+              {/* Card Container */}
+              <div className="bg-white/5 rounded-2xl p-8 border border-white/10 backdrop-blur-sm hover:border-blue-500/30 transition-colors">
+                <div className="flex items-center justify-end gap-4 mb-4">
+                  <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center font-bold text-white shadow-[0_0_10px_rgba(37,99,235,0.5)]">
+                    2
+                  </div>
+                  <h3 className="text-2xl font-bold text-blue-400">Analyze</h3>
                 </div>
-                <h3 className="text-2xl font-bold text-emerald-400">Analyze</h3>
+                <p className="text-white/60 leading-relaxed">
+                  Data streams securely to the cloud where AI models analyze frequencies, power consumption,
+                  and vibration patterns in real-time.
+                </p>
               </div>
-              <p className="text-white/60 leading-relaxed">
-                Data streams securely to the cloud where AI models analyze frequencies, power consumption,
-                and vibration patterns in real-time.
-              </p>
             </motion.div>
 
             {/* Center Node */}
@@ -158,7 +165,7 @@ export default function FactoryOps() {
               initial={{ scale: 0 }}
               animate={isInView ? { scale: 1 } : {}}
               transition={{ duration: 0.5, delay: 0.5 }}
-              className="absolute left-[50%] top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex items-center justify-center w-6 h-6 rounded-full bg-gray-900/50 backdrop-blur-md border-2 border-emerald-500 z-10 box-content shadow-[0_0_15px_rgba(16,185,129,0.8)]"
+              className="absolute left-[50%] top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex items-center justify-center w-6 h-6 rounded-full bg-gray-900/50 backdrop-blur-md border-2 border-blue-500 z-10 box-content shadow-[0_0_15px_rgba(59,130,246,0.8)]"
             />
 
             {/* Right Content - Icon */}
@@ -166,27 +173,29 @@ export default function FactoryOps() {
               initial={{ opacity: 0, x: 50 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="pl-8 lg:pl-12 relative group"
+              className="md:pl-8 lg:pl-12 relative group flex flex-col items-center md:block"
             >
               {/* Horizontal Glow Line (Right) */}
               <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-l from-transparent via-emerald-500/50 to-emerald-500 hidden md:block -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-              <div className="relative w-32 h-32 md:w-40 md:h-40 mx-auto md:mx-0">
-                <div className="absolute inset-0 bg-emerald-500/20 rounded-full blur-3xl animate-pulse" />
-                <div className="relative w-full h-full rounded-full bg-gradient-to-br from-emerald-500/10 to-green-500/10 border border-emerald-500/30 flex items-center justify-center backdrop-blur-sm">
-                  <Brain className="w-12 h-12 md:w-16 md:h-16 text-emerald-400" />
+              <div className="flex flex-col items-center">
+                <div className="relative w-32 h-32 md:w-40 md:h-40 mx-auto md:mx-0 z-10 bg-gray-950/50 rounded-full backdrop-blur-sm">
+                  <div className="absolute inset-0 bg-emerald-500/20 rounded-full blur-3xl animate-pulse" />
+                  <div className="relative w-full h-full rounded-full bg-gradient-to-br from-emerald-500/10 to-green-500/10 border border-emerald-500/30 flex items-center justify-center backdrop-blur-sm">
+                    <Brain className="w-12 h-12 md:w-16 md:h-16 text-emerald-400" />
+                  </div>
                 </div>
-              </div>
 
-              {/* Mobile Text (Visible only on small screens) */}
-              <div className="mt-6 md:hidden text-center">
-                <div className="flex items-center justify-center gap-3 mb-2">
-                  <div className="w-6 h-6 rounded-full bg-emerald-600 flex items-center justify-center text-xs font-bold text-white">2</div>
-                  <h3 className="text-xl font-bold text-emerald-400">Analyze</h3>
+                {/* Mobile Text (Visible only on small screens) */}
+                <div className="mt-8 md:hidden flex flex-col items-center justify-center text-center w-full z-10 bg-white/5 rounded-2xl p-6 border border-white/10 backdrop-blur-sm">
+                  <div className="flex items-center justify-center gap-3 mb-7">
+                    <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-xs font-bold text-white">2</div>
+                    <h3 className="text-xl font-bold text-blue-400">Analyze</h3>
+                  </div>
+                  <p className="text-white/60">
+                    Data streams securely to the cloud where AI models analyze frequencies, power consumption, and vibration patterns.
+                  </p>
                 </div>
-                <p className="text-white/60">
-                  Data streams securely to the cloud where AI models analyze frequencies, power consumption, and vibration patterns.
-                </p>
               </div>
             </motion.div>
           </div>
@@ -198,27 +207,29 @@ export default function FactoryOps() {
               initial={{ opacity: 0, x: -50 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="pr-8 lg:pr-12 order-2 md:order-1 relative group"
+              className="md:pr-8 lg:pr-12 order-2 md:order-1 relative group flex flex-col items-center md:block"
             >
               {/* Horizontal Glow Line (Left) */}
-              <div className="absolute top-1/2 right-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-500/50 to-blue-500 hidden md:block -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute top-1/2 right-0 w-full h-[1px] bg-gradient-to-r from-transparent via-emerald-500/50 to-emerald-500 hidden md:block -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-              <div className="relative w-32 h-32 md:w-40 md:h-40 mx-auto md:ml-auto md:mr-0">
-                <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-3xl animate-pulse" />
-                <div className="relative w-full h-full rounded-full bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-500/30 flex items-center justify-center backdrop-blur-sm">
-                  <TrendingUp className="w-12 h-12 md:w-16 md:h-16 text-blue-400" />
+              <div className="flex flex-col items-center">
+                <div className="relative w-32 h-32 md:w-40 md:h-40 mx-auto md:ml-auto md:mr-0 z-10 bg-gray-950/50 rounded-full backdrop-blur-sm">
+                  <div className="absolute inset-0 bg-emerald-500/20 rounded-full blur-3xl animate-pulse" />
+                  <div className="relative w-full h-full rounded-full bg-gradient-to-br from-emerald-500/10 to-green-500/10 border border-emerald-500/30 flex items-center justify-center backdrop-blur-sm">
+                    <TrendingUp className="w-12 h-12 md:w-16 md:h-16 text-emerald-400" />
+                  </div>
                 </div>
-              </div>
 
-              {/* Mobile Text */}
-              <div className="mt-6 md:hidden text-center">
-                <div className="flex items-center justify-center gap-3 mb-2">
-                  <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-xs font-bold text-white">3</div>
-                  <h3 className="text-xl font-bold text-blue-400">Optimize</h3>
+                {/* Mobile Text */}
+                <div className="mt-8 md:hidden flex flex-col items-center justify-center text-center w-full z-10 bg-white/5 rounded-2xl p-6 border border-white/10 backdrop-blur-sm">
+                  <div className="flex items-center justify-center gap-3 mb-7">
+                    <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-xs font-bold text-white">3</div>
+                    <h3 className="text-xl font-bold text-blue-400">Optimize</h3>
+                  </div>
+                  <p className="text-white/60">
+                    Receive instant alerts on downtime risks and OEE bottlenecks via dashboard or mobile app.
+                  </p>
                 </div>
-                <p className="text-white/60">
-                  Receive instant alerts on downtime risks and OEE bottlenecks via dashboard or mobile app.
-                </p>
               </div>
             </motion.div>
 
@@ -226,8 +237,8 @@ export default function FactoryOps() {
             <motion.div
               initial={{ scale: 0 }}
               animate={isInView ? { scale: 1 } : {}}
-              transition={{ duration: 0.5, delay: 0.7 }}
-              className="absolute left-[50%] top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex items-center justify-center w-6 h-6 rounded-full bg-gray-900/50 backdrop-blur-md border-2 border-blue-600 z-10 box-content shadow-[0_0_15px_rgba(37,99,235,0.8)]"
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="absolute left-[50%] top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex items-center justify-center w-6 h-6 rounded-full bg-gray-900/50 backdrop-blur-md border-2 border-blue-500 z-10 box-content shadow-[0_0_15px_rgba(59,130,246,0.8)]"
             />
 
             {/* Right Content - Text */}
@@ -241,10 +252,10 @@ export default function FactoryOps() {
               <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-l from-transparent via-blue-500/50 to-blue-500 hidden md:block -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
               <div className="flex items-center justify-start gap-4 mb-4">
-                <h3 className="text-2xl font-bold text-blue-400">Optimize</h3>
                 <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center font-bold text-white shadow-[0_0_10px_rgba(37,99,235,0.5)]">
                   3
                 </div>
+                <h3 className="text-2xl font-bold text-blue-400">Optimize</h3>
               </div>
               <p className="text-white/60 leading-relaxed">
                 Receive instant alerts on downtime risks and OEE bottlenecks via dashboard or mobile app.
@@ -252,10 +263,6 @@ export default function FactoryOps() {
               </p>
             </motion.div>
           </div>
-
-
-
-
 
         </div>
       </div>
