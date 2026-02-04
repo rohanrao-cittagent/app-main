@@ -43,7 +43,7 @@ export default function FactoryOps() {
             transition={{ duration: 0.8 }}
             className="heading-2 text-white mb-6"
           >
-            From Anest Iwata Compressors to Assembly Lines—
+            From Individual Assets to Entire Assembly Lines —
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-green-500">
               We Monitor It All
             </span>
