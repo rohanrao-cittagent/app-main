@@ -95,9 +95,9 @@ export default function Navbar() {
                   className="h-full w-auto object-contain scale-[3.5] origin-left translate-y-5 -translate-x-12 pointer-events-none"
                   animate={{
                     filter: [
-                      "brightness(0) saturate(100%) invert(10%) sepia(59%) saturate(4152%) hue-rotate(231deg) brightness(85%) contrast(106%) drop-shadow(0 0 2px rgba(22,31,82,0))",
-                      "brightness(0) saturate(100%) invert(10%) sepia(59%) saturate(4152%) hue-rotate(231deg) brightness(85%) contrast(106%) drop-shadow(0 0 12px rgba(22,31,82,0.6))",
-                      "brightness(0) saturate(100%) invert(10%) sepia(59%) saturate(4152%) hue-rotate(231deg) brightness(85%) contrast(106%) drop-shadow(0 0 2px rgba(22,31,82,0))"
+                      "brightness(1.5) drop-shadow(0 0 2px rgba(0,133,202,0))",
+                      "brightness(1.5) drop-shadow(0 0 12px rgba(0,133,202,0.4))",
+                      "brightness(1.5) drop-shadow(0 0 2px rgba(0,133,202,0))"
                     ]
                   }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}

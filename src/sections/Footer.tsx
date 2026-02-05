@@ -156,7 +156,7 @@ export default function Footer() {
                   src={logo}
                   alt="FactoryOps Logo"
                   className="h-full w-auto object-contain scale-[1.8] origin-center md:origin-left"
-                  style={{ filter: 'brightness(0) saturate(100%) invert(10%) sepia(59%) saturate(4152%) hue-rotate(231deg) brightness(85%) contrast(106%)' }}
+                  style={{ filter: 'brightness(1.5)' }}
                 />
               </div>
             </a>
