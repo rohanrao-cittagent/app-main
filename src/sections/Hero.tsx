@@ -135,16 +135,14 @@ function FloatingCard({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50, rotateX: -20 }}
-      animate={{ opacity: 1, y: 0, rotateX: 0 }}
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{
         y: -10,
-        rotateX: 5,
-        rotateY: 5,
         transition: { duration: 0.3 }
       }}
-      className="relative preserve-3d"
+      className="relative"
     >
       <div className="glass-enhanced rounded-2xl p-5 border border-white/10 hover:border-cyan-400/30 transition-all duration-300 glow-blue">
         <div className="flex items-center gap-3 mb-3">
@@ -363,16 +361,12 @@ export default function Hero() {
           </div>
 
           {/* Right Column - 3D Cards */}
-          <div className="relative perspective-1000">
+          <div className="relative">
             <motion.div
-              initial={{ opacity: 0, rotateY: -30 }}
-              animate={{ opacity: 1, rotateY: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 0.3 }}
-              className="relative preserve-3d"
-              style={{
-                rotateY,
-                rotateX,
-              }}
+              className="relative"
             >
               {/* Main 3D Visualization */}
               <div className="relative">

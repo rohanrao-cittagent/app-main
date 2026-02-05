@@ -47,7 +47,7 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { name: 'LinkedIn', icon: Linkedin, href: '#' },
+  { name: 'LinkedIn', icon: Linkedin, href: 'https://www.linkedin.com/company/cittagent/?viewAsMember=true' },
   { name: 'Twitter', icon: Twitter, href: '#' },
   { name: 'YouTube', icon: Youtube, href: '#' },
 ];
@@ -146,34 +146,33 @@ export default function Footer() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-12 pt-50"
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-12 pt-50 text-center md:text-left"
         >
           {/* Brand Column */}
-          <div className="col-span-2">
-            <a href="#" className="flex items-start gap-2 mb-2 -mt-10">
-              <div className="relative h-28 w-auto flex items-start">
-                <img src={logo} alt="FactoryOps Logo" className="h-full w-auto object-contain" />
+          <div className="col-span-2 flex flex-col items-center md:items-start">
+            <a href="#" className="flex justify-center md:justify-start items-center gap-2 mb-2 -mt-10 w-full md:w-auto">
+              <div className="relative h-32 w-auto flex items-start">
+                <img src={logo} alt="FactoryOps Logo" className="h-full w-auto object-contain scale-[1.8] origin-center md:origin-left" />
               </div>
             </a>
-            <p className="text-white/60 text-sm mb-6 max-w-xs -mt-5">
+            <p className="text-white/60 text-sm mb-6 max-w-xs -mt-12 mx-auto md:mx-0">
               AI-powered industrial intelligence platform for modern manufacturing operations.
             </p>
 
             {/* Contact Info */}
-            <div className="space-y-3">
-              <div className="flex items-center gap-3 text-sm text-white/60">
+            <div className="space-y-3 w-full">
+              <div className="flex items-center justify-center md:justify-start gap-3 text-sm text-white/60">
                 <MapPin className="w-4 h-4 text-cyan-400 flex-shrink-0" />
-                <span>CA Site, 1, HAL 3rd Stage EXTN,
-                  behind Hotel Leela Palace, HAL 2nd Stage,
-                  Kodihalli, Bengaluru, Karnataka 560008
-
+                <span>CA Site, 1, HAL 3rd Stage EXTN,<br className="hidden md:block" />
+                  behind Hotel Leela Palace, HAL 2nd Stage,<br className="hidden md:block" />
+                  Kodihalli, Bengaluru, Karnataka 560008<br className="hidden md:block" />
                   Platform</span>
               </div>
-              <div className="flex items-center gap-3 text-sm text-white/60">
+              <div className="flex items-center justify-center md:justify-start gap-3 text-sm text-white/60">
                 <Phone className="w-4 h-4 text-cyan-400 flex-shrink-0" />
                 <span>+91 90087 63311</span>
               </div>
-              <div className="flex items-center gap-3 text-sm text-white/60">
+              <div className="flex items-center justify-center md:justify-start gap-3 text-sm text-white/60">
                 <Mail className="w-4 h-4 text-cyan-400 flex-shrink-0" />
                 <span>support@cittagent.com</span>
               </div>
@@ -236,7 +235,7 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4">Legal</h4>
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
-                <li key={link.name}>
+                <li key={link.name} className="flex justify-center md:justify-start">
                   <a
                     href={link.href}
                     className="text-sm text-white/60 hover:text-cyan-400 transition-colors flex items-center gap-2"
@@ -284,7 +283,7 @@ export default function Footer() {
             </div>
           </div>
         </motion.div>
-      </div>
-    </footer>
+      </div >
+    </footer >
   );
 }

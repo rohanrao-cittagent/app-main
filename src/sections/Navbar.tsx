@@ -25,10 +25,14 @@ export default function Navbar() {
 
   const scrollToSection = (href: string) => {
     setIsMobileMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+
+    // Small timeout to allow menu close animation to start/finish so scroll target position is stable
+    setTimeout(() => {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 300);
   };
 
   return (
@@ -88,7 +92,7 @@ export default function Navbar() {
                   src={logo}
                   alt="FactoryOps Logo"
                   // Preserving exact user transforms: scale-[3.5] origin-left translate-y-5 -translate-x-4
-                  className="h-full w-auto object-contain scale-[3.5] origin-left translate-y-5 -translate-x-12"
+                  className="h-full w-auto object-contain scale-[3.5] origin-left translate-y-5 -translate-x-12 pointer-events-none"
                   animate={{
                     filter: [
                       "drop-shadow(0 0 2px rgba(6,182,212,0))",
@@ -158,7 +162,10 @@ export default function Navbar() {
               {navLinks.map((link, index) => (
                 <motion.button
                   key={link.name}
-                  onClick={() => scrollToSection(link.href)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection(link.href);
+                  }}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.05 }}
