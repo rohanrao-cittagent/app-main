@@ -152,7 +152,12 @@ export default function Footer() {
           <div className="col-span-2 flex flex-col items-center md:items-start">
             <a href="#" className="flex justify-center md:justify-start items-center gap-2 mb-2 -mt-10 w-full md:w-auto">
               <div className="relative h-32 w-auto flex items-start">
-                <img src={logo} alt="FactoryOps Logo" className="h-full w-auto object-contain scale-[1.8] origin-center md:origin-left" />
+                <img
+                  src={logo}
+                  alt="FactoryOps Logo"
+                  className="h-full w-auto object-contain scale-[1.8] origin-center md:origin-left"
+                  style={{ filter: 'brightness(0) saturate(100%) invert(10%) sepia(59%) saturate(4152%) hue-rotate(231deg) brightness(85%) contrast(106%)' }}
+                />
               </div>
             </a>
             <p className="text-white/60 text-sm mb-6 max-w-xs -mt-12 mx-auto md:mx-0">
