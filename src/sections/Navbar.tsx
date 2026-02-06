@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Cpu, Zap, BarChart3, Shield, Phone } from 'lucide-react';
 import logo from '@/assets/logo.png';
+import ImageLoader from '@/components/ImageLoader';
 
 const navLinks = [
   { name: 'About', href: '#about', icon: Cpu, color: 'text-blue-400' },
@@ -88,11 +89,12 @@ export default function Navbar() {
               whileTap={{ scale: 0.98 }}
             >
               <div className="relative h-20 w-auto flex items-center justify-center">
-                <motion.img
+                <ImageLoader
                   src={logo}
                   alt="FactoryOps Logo"
-                  // Preserving exact user transforms: scale-[3.5] origin-left translate-y-5 -translate-x-4
+                  priority={true}
                   className="h-full w-auto object-contain scale-[3.5] origin-left translate-y-5 -translate-x-12 pointer-events-none"
+                  placeholderClassName="scale-[3.5] origin-left translate-y-5 -translate-x-12"
                   animate={{
                     filter: [
                       "brightness(1.5) drop-shadow(0 0 2px rgba(0,133,202,0))",

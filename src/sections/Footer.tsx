@@ -16,6 +16,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import logo from '@/assets/logo.png';
+import ImageLoader from '@/components/ImageLoader';
 
 const footerLinks = {
   product: [
@@ -152,10 +153,12 @@ export default function Footer() {
           <div className="col-span-2 flex flex-col items-center md:items-start">
             <a href="#" className="flex justify-center md:justify-start items-center gap-2 mb-2 -mt-10 w-full md:w-auto">
               <div className="relative h-32 w-auto flex items-start">
-                <img
+                <ImageLoader
                   src={logo}
                   alt="FactoryOps Logo"
+                  priority={true}
                   className="h-full w-auto object-contain scale-[1.8] origin-center md:origin-left"
+                  placeholderClassName="scale-[1.8] origin-center md:origin-left"
                   style={{ filter: 'brightness(1.5)' }}
                 />
               </div>

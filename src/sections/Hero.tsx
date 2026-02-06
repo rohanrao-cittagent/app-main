@@ -1,23 +1,25 @@
-import { useRef, useEffect, useState, useMemo, memo } from 'react';
+import { useRef, useEffect, useState, memo } from 'react';
 import { toast } from 'sonner';
 import { motion, useScroll, useTransform, AnimatePresence, useMotionValue, useSpring, useInView } from 'framer-motion';
 import { ArrowRight, Play, Sparkles, Activity, TrendingUp, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 const words = [
   { text: "Factory Ops", color: "text-gradient" },
   { text: "Production Line", color: "text-gradient-gold" },
-  { text: "Factory Floor", color: "text-cyan-400" }, // Using a solid blue/cyan style or we can define a new gradient
+  { text: "Factory Floor", color: "text-cyan-400" },
 ];
 
 // 3D Particle Network Component
 const ParticleNetwork = memo(function ParticleNetwork() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isInView = useInView(canvasRef, { margin: "100px" });
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas || prefersReducedMotion) return;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -39,7 +41,10 @@ const ParticleNetwork = memo(function ParticleNetwork() {
 
     const createParticles = () => {
       particles = [];
-      const count = Math.min(50, Math.floor((canvas.offsetWidth * canvas.offsetHeight) / 15000));
+      // Responsive particle count: fewer on mobile
+      const isMobile = window.innerWidth < 768;
+      const baseCount = isMobile ? 20 : 50;
+      const count = Math.min(baseCount, Math.floor((canvas.offsetWidth * canvas.offsetHeight) / 15000));
       for (let i = 0; i < count; i++) {
         particles.push({
           x: Math.random() * canvas.offsetWidth,
@@ -189,9 +194,6 @@ export default function Hero() {
   const bgX3 = useTransform(springX, (value) => value * 15);
   const bgY3 = useTransform(springY, (value) => value * 15);
 
-  // Transformations for 3D card
-  const rotateY = useTransform(springX, (value) => value * 10);
-  const rotateX = useTransform(springY, (value) => -value * 10);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -209,20 +211,37 @@ export default function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        // Calculate normalized position (-0.5 to 0.5)
-        const x = (e.clientX - rect.left - rect.width / 2) / rect.width;
-        const y = (e.clientY - rect.top - rect.height / 2) / rect.height;
+    let rafId: number;
+    let lastX = 0;
+    let lastY = 0;
 
-        mouseX.set(x);
-        mouseY.set(y);
-      }
+    const handleMouseMove = (e: MouseEvent) => {
+      if (rafId) return; // Throttle using RAF
+
+      rafId = requestAnimationFrame(() => {
+        if (containerRef.current) {
+          const rect = containerRef.current.getBoundingClientRect();
+          // Calculate normalized position (-0.5 to 0.5)
+          const x = (e.clientX - rect.left - rect.width / 2) / rect.width;
+          const y = (e.clientY - rect.top - rect.height / 2) / rect.height;
+
+          // Only update if movement is significant
+          if (Math.abs(x - lastX) > 0.01 || Math.abs(y - lastY) > 0.01) {
+            mouseX.set(x);
+            mouseY.set(y);
+            lastX = x;
+            lastY = y;
+          }
+        }
+        rafId = 0;
+      });
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, [mouseX, mouseY]);
 
   return (

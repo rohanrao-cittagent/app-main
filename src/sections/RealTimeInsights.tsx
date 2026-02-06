@@ -1,9 +1,9 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
-import { 
-  Activity, 
-  Thermometer, 
-  Wind, 
+import {
+  Activity,
+  Thermometer,
+  Wind,
   Zap,
   Gauge,
   Clock,
@@ -38,6 +38,9 @@ function MachineCard({ machine, index }: { machine: MachineData; index: number }
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   useEffect(() => {
+    // Only update data when in view
+    if (!isInView) return;
+
     const interval = setInterval(() => {
       setData(prev => ({
         ...prev,
@@ -46,10 +49,10 @@ function MachineCard({ machine, index }: { machine: MachineData; index: number }
         temperature: prev.status === 'running' ? prev.temperature + (Math.random() - 0.5) * 1.5 : prev.temperature,
         efficiency: prev.status === 'running' ? Math.min(100, Math.max(0, prev.efficiency + (Math.random() - 0.5) * 0.5)) : prev.efficiency,
       }));
-    }, 2000);
+    }, 3000); // Increased from 2s to 3s
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isInView]);
 
   const statusColors = {
     running: 'bg-emerald-500',
@@ -83,12 +86,11 @@ function MachineCard({ machine, index }: { machine: MachineData; index: number }
               <span className="text-xs text-white/50">{data.id}</span>
             </div>
           </div>
-          <div className={`px-2 py-1 rounded-full text-xs font-medium capitalize ${
-            data.status === 'running' ? 'bg-emerald-500/20 text-emerald-400' :
+          <div className={`px-2 py-1 rounded-full text-xs font-medium capitalize ${data.status === 'running' ? 'bg-emerald-500/20 text-emerald-400' :
             data.status === 'idle' ? 'bg-amber-500/20 text-amber-400' :
-            data.status === 'warning' ? 'bg-orange-500/20 text-orange-400' :
-            'bg-red-500/20 text-red-400'
-          }`}>
+              data.status === 'warning' ? 'bg-orange-500/20 text-orange-400' :
+                'bg-red-500/20 text-red-400'
+            }`}>
             {data.status}
           </div>
         </div>
@@ -165,17 +167,22 @@ function MachineCard({ machine, index }: { machine: MachineData; index: number }
 function LiveChart() {
   const [dataPoints, setDataPoints] = useState<number[]>([65, 68, 72, 70, 75, 78, 82, 80, 85, 88]);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const chartRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(chartRef, { once: true, margin: "0px" });
 
   useEffect(() => {
+    // Only update data when in view
+    if (!isInView) return;
+
     const interval = setInterval(() => {
       setDataPoints(prev => {
         const newValue = prev[prev.length - 1] + (Math.random() - 0.5) * 5;
         return [...prev.slice(1), Math.max(50, Math.min(100, newValue))];
       });
-    }, 1500);
+    }, 2000); // Increased from 1.5s to 2s
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isInView]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -200,13 +207,13 @@ function LiveChart() {
 
     ctx.beginPath();
     ctx.moveTo(0, rect.height);
-    
+
     dataPoints.forEach((value, index) => {
       const x = (index / (dataPoints.length - 1)) * rect.width;
       const y = rect.height - (value / 100) * rect.height;
       ctx.lineTo(x, y);
     });
-    
+
     ctx.lineTo(rect.width, rect.height);
     ctx.closePath();
     ctx.fillStyle = gradient;
@@ -239,7 +246,7 @@ function LiveChart() {
   }, [dataPoints]);
 
   return (
-    <div className="relative h-32">
+    <div ref={chartRef} className="relative h-32">
       <canvas
         ref={canvasRef}
         className="w-full h-full"
@@ -252,7 +259,7 @@ function LiveChart() {
 export default function RealTimeInsights() {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
-  
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
@@ -268,13 +275,13 @@ export default function RealTimeInsights() {
   ];
 
   return (
-    <section 
+    <section
       ref={containerRef}
-      id="insights" 
+      id="insights"
       className="relative py-24 lg:py-32 overflow-hidden"
     >
       {/* Background */}
-      <motion.div 
+      <motion.div
         className="absolute inset-0 pointer-events-none"
         style={{ y: backgroundY }}
       >
@@ -311,7 +318,7 @@ export default function RealTimeInsights() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="body-large text-white/60"
           >
-            Monitor all your industrial equipment in real-time with live data feeds, 
+            Monitor all your industrial equipment in real-time with live data feeds,
             predictive analytics, and instant alerts for optimal performance.
           </motion.p>
         </div>
@@ -327,9 +334,8 @@ export default function RealTimeInsights() {
             <div key={index} className="glass-enhanced rounded-xl p-4 border border-white/10">
               <div className="flex items-center justify-between mb-2">
                 <stat.icon className="w-5 h-5 text-cyan-400" />
-                <div className={`flex items-center gap-1 text-xs ${
-                  stat.trend === 'up' ? 'text-emerald-400' : 'text-amber-400'
-                }`}>
+                <div className={`flex items-center gap-1 text-xs ${stat.trend === 'up' ? 'text-emerald-400' : 'text-amber-400'
+                  }`}>
                   {stat.trend === 'up' ? (
                     <TrendingUp className="w-3 h-3" />
                   ) : (

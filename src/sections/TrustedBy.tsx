@@ -7,6 +7,7 @@ import carouselBg1 from '@/assets/carousel-bg-1.png';
 import carouselBg2 from '@/assets/carousel-bg-2.png';
 import VideoModal from '@/components/VideoModal';
 import videoUrl from '@/assets/video/Energy_Intelligence.mp4';
+import ImageLoader from '@/components/ImageLoader';
 
 const slides = [
     {
@@ -59,9 +60,11 @@ export default function TrustedBy() {
                             className="absolute inset-0 z-0"
                         >
                             <div className="absolute inset-0 bg-gradient-to-br from-gray-900/80 to-black/40 z-10" />
-                            <div
-                                className="absolute inset-0 opacity-80 bg-cover bg-center transition-all duration-1000"
-                                style={{ backgroundImage: `url('${slides[currentIndex].image}')` }}
+                            <ImageLoader
+                                src={slides[currentIndex].image}
+                                alt="Slide Background"
+                                className="absolute inset-0 w-full h-full opacity-80 transition-all duration-1000"
+                                imgClassName="object-cover"
                             />
                         </motion.div>
                     </AnimatePresence>
