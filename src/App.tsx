@@ -105,7 +105,7 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
-      <Toaster position="top-center" theme="dark" />
+      <Toaster position="bottom-right" theme="dark" />
     </div>
   );
 }

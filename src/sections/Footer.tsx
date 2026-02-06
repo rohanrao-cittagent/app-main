@@ -1,5 +1,4 @@
-import { useRef } from 'react';
-import { toast } from 'sonner';
+import { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import {
   Mail,
@@ -14,6 +13,7 @@ import {
   HelpCircle
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Input } from '@/components/ui/input';
 import logo from '@/assets/logo.png';
 import ImageLoader from '@/components/ImageLoader';
@@ -56,6 +56,8 @@ const socialLinks = [
 export default function Footer() {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-50px" });
+  const [isTrialPopoverOpen, setIsTrialPopoverOpen] = useState(false);
+  const [isDemoPopoverOpen, setIsDemoPopoverOpen] = useState(false);
 
   return (
     <footer
@@ -87,38 +89,70 @@ export default function Footer() {
                 and reduce costs. Start your free trial today.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  size="lg"
-                  onClick={() => toast.info("Coming Soon!", {
-                    description: "Free trials will be available shortly.",
-                    style: {
-                      background: 'rgba(2, 12, 27, 0.8)',
-                      backdropFilter: 'blur(16px)',
-                      border: '1px solid rgba(6, 182, 212, 0.2)',
-                      color: '#fff',
-                    }
-                  })}
-                  className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white border-0"
-                >
-                  Start Free Trial
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  onClick={() => toast.info("Coming Soon!", {
-                    description: "Demo scheduling will be available shortly.",
-                    style: {
-                      background: 'rgba(2, 12, 27, 0.8)',
-                      backdropFilter: 'blur(16px)',
-                      border: '1px solid rgba(6, 182, 212, 0.2)',
-                      color: '#fff',
-                    }
-                  })}
-                  className="border-white/20 text-white hover:bg-white/5"
-                >
-                  Schedule Demo
-                </Button>
+                <Popover open={isTrialPopoverOpen} onOpenChange={setIsTrialPopoverOpen}>
+                  <PopoverTrigger asChild>
+                    <Button
+                      size="lg"
+                      onClick={() => {
+                        setIsTrialPopoverOpen(true);
+                        setTimeout(() => setIsTrialPopoverOpen(false), 1500);
+                      }}
+                      className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white border-0"
+                    >
+                      Start Free Trial
+                      <ArrowRight className="w-5 h-5 ml-2" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent
+                    className="w-80 bg-[rgba(2,12,27,0.95)] backdrop-blur-xl border border-cyan-500/20 text-white"
+                    side="top"
+                    sideOffset={10}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-cyan-500/10 flex items-center justify-center border border-cyan-500/20">
+                        <svg className="w-5 h-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-white mb-1">Coming Soon!</h4>
+                        <p className="text-sm text-white/70">Free trials will be available shortly.</p>
+                      </div>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+                <Popover open={isDemoPopoverOpen} onOpenChange={setIsDemoPopoverOpen}>
+                  <PopoverTrigger asChild>
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      onClick={() => {
+                        setIsDemoPopoverOpen(true);
+                        setTimeout(() => setIsDemoPopoverOpen(false), 1500);
+                      }}
+                      className="border-white/20 text-white hover:bg-white/5"
+                    >
+                      Schedule Demo
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent
+                    className="w-80 bg-[rgba(2,12,27,0.95)] backdrop-blur-xl border border-cyan-500/20 text-white"
+                    side="top"
+                    sideOffset={10}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-cyan-500/10 flex items-center justify-center border border-cyan-500/20">
+                        <svg className="w-5 h-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-white mb-1">Coming Soon!</h4>
+                        <p className="text-sm text-white/70">Demo scheduling will be available shortly.</p>
+                      </div>
+                    </div>
+                  </PopoverContent>
+                </Popover>
               </div>
             </div>
             <div className="lg:pl-8">

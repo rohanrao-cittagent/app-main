@@ -108,7 +108,7 @@ export default function Navbar() {
             </motion.a>
 
             {/* Desktop Navigation - Right Aligned */}
-            <div className="hidden lg:flex items-center gap-8 mr-16">
+            <div className="hidden md:flex items-center gap-6 lg:gap-8 mr-8 lg:mr-16">
               {navLinks.map((link, index) => (
                 <motion.button
                   key={link.name}
@@ -138,7 +138,7 @@ export default function Navbar() {
             {/* Mobile Menu Button */}
             <motion.button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 text-slate-300 hover:text-cyan-400 transition-colors z-20"
+              className="md:hidden p-2 text-slate-300 hover:text-cyan-400 transition-colors z-20"
               whileTap={{ scale: 0.95 }}
             >
               {isMobileMenuOpen ? (
@@ -158,7 +158,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="fixed inset-x-0 top-20 z-40 lg:hidden bg-[#020c1b]/95 backdrop-blur-xl border-b border-cyan-500/10 shadow-2xl overflow-hidden"
+            className="fixed inset-x-0 top-20 z-40 md:hidden bg-[#020c1b]/95 backdrop-blur-xl border-b border-cyan-500/10 shadow-2xl overflow-hidden"
           >
             <div className="p-4 space-y-2">
               {navLinks.map((link, index) => (

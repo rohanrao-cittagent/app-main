@@ -1,8 +1,8 @@
 import { useRef, useEffect, useState, memo } from 'react';
-import { toast } from 'sonner';
 import { motion, useScroll, useTransform, AnimatePresence, useMotionValue, useSpring, useInView } from 'framer-motion';
 import { ArrowRight, Play, Sparkles, Activity, TrendingUp, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 const words = [
@@ -172,9 +172,12 @@ import videoUrl from '@/assets/video/Energy_Intelligence.mp4';
 // ... existing code ...
 
 export default function Hero() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [index, setIndex] = useState(0);
   const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
+  const [index, setIndex] = useState(0);
 
   // Performance Optimization: Use useMotionValue instead of useState for mouse tracking
   const mouseX = useMotionValue(0);
@@ -332,22 +335,38 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
-              <Button
-                size="lg"
-                onClick={() => toast.info("Coming Soon!", {
-                  description: "Free trials will be available shortly.",
-                  style: {
-                    background: 'rgba(2, 12, 27, 0.8)',
-                    backdropFilter: 'blur(16px)',
-                    border: '1px solid rgba(6, 182, 212, 0.2)',
-                    color: '#fff',
-                  }
-                })}
-                className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white border-0 px-8 py-6 text-lg font-semibold group"
-              >
-                Start Free Trial
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
+              <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    size="lg"
+                    onClick={() => {
+                      setIsPopoverOpen(true);
+                      setTimeout(() => setIsPopoverOpen(false), 1500);
+                    }}
+                    className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white border-0 px-8 py-6 text-lg font-semibold group"
+                  >
+                    Start Free Trial
+                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent
+                  className="w-80 bg-[rgba(2,12,27,0.95)] backdrop-blur-xl border border-cyan-500/20 text-white"
+                  side="top"
+                  sideOffset={10}
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-cyan-500/10 flex items-center justify-center border border-cyan-500/20">
+                      <svg className="w-5 h-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white mb-1">Coming Soon!</h4>
+                      <p className="text-sm text-white/70">Free trials will be available shortly.</p>
+                    </div>
+                  </div>
+                </PopoverContent>
+              </Popover>
               <Button
                 size="lg"
                 variant="outline"

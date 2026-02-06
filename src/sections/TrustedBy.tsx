@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { toast } from 'sonner';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, PlayCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import carouselBg1 from '@/assets/carousel-bg-1.png';
 import carouselBg2 from '@/assets/carousel-bg-2.png';
 import VideoModal from '@/components/VideoModal';
@@ -30,6 +30,7 @@ const slides = [
 export default function TrustedBy() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isVideoOpen, setIsVideoOpen] = useState(false);
+    const [isDemoPopoverOpen, setIsDemoPopoverOpen] = useState(false);
 
     const nextSlide = () => {
         setCurrentIndex((prev) => (prev + 1) % slides.length);
@@ -86,21 +87,37 @@ export default function TrustedBy() {
                                     </h2>
 
                                     <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
-                                        <Button
-                                            size="lg"
-                                            className="h-14 px-8 text-lg font-semibold bg-white text-black hover:bg-white/90 shadow-xl transition-all rounded-full w-full sm:w-auto"
-                                            onClick={() => toast.info("Coming Soon!", {
-                                                description: "Demo requests will be available shortly.",
-                                                style: {
-                                                    background: 'rgba(2, 12, 27, 0.8)',
-                                                    backdropFilter: 'blur(16px)',
-                                                    border: '1px solid rgba(6, 182, 212, 0.2)',
-                                                    color: '#fff',
-                                                }
-                                            })}
-                                        >
-                                            Request a Demo <ArrowRight className="ml-2 h-5 w-5" />
-                                        </Button>
+                                        <Popover open={isDemoPopoverOpen} onOpenChange={setIsDemoPopoverOpen}>
+                                            <PopoverTrigger asChild>
+                                                <Button
+                                                    size="lg"
+                                                    className="h-14 px-8 text-lg font-semibold bg-white text-black hover:bg-white/90 shadow-xl transition-all rounded-full w-full sm:w-auto"
+                                                    onClick={() => {
+                                                        setIsDemoPopoverOpen(true);
+                                                        setTimeout(() => setIsDemoPopoverOpen(false), 1500);
+                                                    }}
+                                                >
+                                                    Request a Demo <ArrowRight className="ml-2 h-5 w-5" />
+                                                </Button>
+                                            </PopoverTrigger>
+                                            <PopoverContent
+                                                className="w-80 bg-[rgba(2,12,27,0.95)] backdrop-blur-xl border border-cyan-500/20 text-white"
+                                                side="top"
+                                                sideOffset={10}
+                                            >
+                                                <div className="flex items-start gap-3">
+                                                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-cyan-500/10 flex items-center justify-center border border-cyan-500/20">
+                                                        <svg className="w-5 h-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                        </svg>
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="font-semibold text-white mb-1">Coming Soon!</h4>
+                                                        <p className="text-sm text-white/70">Demo requests will be available shortly.</p>
+                                                    </div>
+                                                </div>
+                                            </PopoverContent>
+                                        </Popover>
                                         <Button
                                             size="lg"
                                             variant="outline"
