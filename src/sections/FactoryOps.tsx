@@ -101,41 +101,22 @@ export default function FactoryOps() {
                 className={`relative flex flex-col md:flex-row items-center gap-8 ${index % 2 === 0 ? "md:flex-row-reverse" : ""
                   }`}
               >
-                {/* Enhanced Connector Dot with Pulse */}
-                <motion.div
+                {/* Enhanced Connector Dot with Static Glow */}
+                <div
                   className="absolute left-1/2 -translate-x-1/2 w-8 h-8 rounded-full z-10 hidden md:block"
-                  animate={{
-                    boxShadow: [
-                      `0 0 20px 5px ${step.glowColor}`,
-                      `0 0 30px 10px ${step.glowColor}`,
-                      `0 0 20px 5px ${step.glowColor}`,
-                    ],
+                  style={{
+                    boxShadow: `0 0 20px 5px ${step.glowColor}`,
                   }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 >
                   <div className={`w-full h-full rounded-full bg-gradient-to-br ${step.gradient} border-2 border-white/20`} />
-                </motion.div>
+                </div>
 
                 {/* Enhanced Card with Gradient Border */}
                 <div className="flex-1 text-center md:text-left w-full">
-                  <motion.div
+                  <div
                     className={`relative p-[2px] rounded-2xl bg-gradient-to-br ${step.gradient} ${index % 2 === 0 ? "md:text-left" : "md:text-right"
                       }`}
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.2 }}
                   >
-                    {/* Animated gradient border effect */}
-                    <motion.div
-                      className="absolute inset-0 rounded-2xl opacity-0"
-                      animate={{
-                        opacity: [0, 0.5, 0],
-                      }}
-                      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                      style={{
-                        background: `linear-gradient(45deg, transparent, ${step.glowColor}, transparent)`,
-                        filter: 'blur(10px)',
-                      }}
-                    />
 
                     <div className="relative p-6 rounded-2xl bg-[#020c1b] backdrop-blur">
                       <h3 className={`text-2xl font-bold mb-2 flex items-center gap-3 ${index % 2 === 0 ? "md:justify-start" : "md:justify-end"
@@ -151,56 +132,24 @@ export default function FactoryOps() {
                         {step.description}
                       </p>
                     </div>
-                  </motion.div>
+                  </div>
                 </div>
 
-                {/* Enhanced Icon with Particles Effect */}
+                {/* Enhanced Icon with Static Glow */}
                 <div className="flex-1 flex justify-center">
                   <div className="relative">
-                    {/* Particle rings */}
-                    <motion.div
-                      className={`absolute inset-0 rounded-full bg-gradient-to-br ${step.gradient} opacity-20 blur-xl`}
-                      animate={{
-                        scale: [1, 1.3, 1],
-                        opacity: [0.2, 0.4, 0.2],
-                      }}
-                      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                    />
-                    <motion.div
-                      className={`absolute inset-0 rounded-full bg-gradient-to-br ${step.gradient} opacity-10 blur-2xl`}
-                      animate={{
-                        scale: [1, 1.5, 1],
-                        opacity: [0.1, 0.3, 0.1],
-                      }}
-                      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                    />
+                    {/* Static glow effect */}
+                    <div className={`absolute inset-0 rounded-full bg-gradient-to-br ${step.gradient} opacity-20 blur-xl`} />
 
                     {/* Main Icon */}
-                    <motion.div
+                    <div
                       className={`relative w-20 h-20 rounded-full bg-gradient-to-br ${step.gradient} flex items-center justify-center text-white border-2 border-white/20 shadow-2xl`}
-                      animate={{
-                        boxShadow: [
-                          `0 0 40px 10px ${step.glowColor}`,
-                          `0 0 60px 20px ${step.glowColor}`,
-                          `0 0 40px 10px ${step.glowColor}`,
-                        ],
-                      }}
-                      transition={{
-                        boxShadow: { duration: 2, repeat: Infinity, ease: "easeInOut" },
-                      }}
-                      whileHover={{
-                        scale: 1.1,
+                      style={{
+                        boxShadow: `0 0 40px 10px ${step.glowColor}`,
                       }}
                     >
-                      <motion.div
-                        animate={{
-                          scale: [1, 1.1, 1],
-                        }}
-                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                      >
-                        <step.icon className="w-7 h-7" strokeWidth={1.5} />
-                      </motion.div>
-                    </motion.div>
+                      <step.icon className="w-7 h-7" strokeWidth={1.5} />
+                    </div>
                   </div>
                 </div>
               </motion.div>
