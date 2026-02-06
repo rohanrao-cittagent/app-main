@@ -300,7 +300,7 @@ export default function Hero() {
               className="heading-1 text-white mb-6"
             >
               <span className="block">Transform Your</span>
-              <span className="block h-[1.2em] overflow-hidden whitespace-nowrap">
+              <span className="inline-block h-[1.2em] overflow-visible whitespace-nowrap w-auto">
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={words[index].text}
@@ -308,7 +308,7 @@ export default function Hero() {
                     animate={{ y: 0, opacity: 1 }}
                     exit={{ y: -40, opacity: 0 }}
                     transition={{ duration: 0.5, ease: "easeOut" }}
-                    className={`block ${words[index].color}`}
+                    className={`inline-block ${words[index].color}`}
                   >
                     {words[index].text}
                   </motion.span>
