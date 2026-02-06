@@ -140,15 +140,9 @@ export default function FactoryOps() {
                     <div className="relative p-6 rounded-2xl bg-[#020c1b] backdrop-blur">
                       <h3 className={`text-2xl font-bold mb-2 flex items-center gap-3 ${index % 2 === 0 ? "md:justify-start" : "md:justify-end"
                         } justify-center`}>
-                        <motion.span
-                          className={`flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br ${step.gradient} flex items-center justify-center text-sm font-extrabold text-white shadow-lg`}
-                          animate={{
-                            rotate: [0, 360],
-                          }}
-                          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                        >
+                        <span className={`flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br ${step.gradient} flex items-center justify-center text-sm font-extrabold text-white shadow-lg`}>
                           {step.id}
-                        </motion.span>
+                        </span>
                         <span className={`text-transparent bg-clip-text bg-gradient-to-r ${step.gradient}`}>
                           {step.title}
                         </span>
@@ -190,15 +184,12 @@ export default function FactoryOps() {
                           `0 0 60px 20px ${step.glowColor}`,
                           `0 0 40px 10px ${step.glowColor}`,
                         ],
-                        rotate: [0, 5, -5, 0],
                       }}
                       transition={{
                         boxShadow: { duration: 2, repeat: Infinity, ease: "easeInOut" },
-                        rotate: { duration: 6, repeat: Infinity, ease: "easeInOut" },
                       }}
                       whileHover={{
                         scale: 1.1,
-                        rotate: 15,
                       }}
                     >
                       <motion.div
