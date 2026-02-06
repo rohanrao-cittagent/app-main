@@ -58,6 +58,7 @@ export default function Footer() {
   const isInView = useInView(containerRef, { once: true, margin: "-50px" });
   const [isTrialPopoverOpen, setIsTrialPopoverOpen] = useState(false);
   const [isDemoPopoverOpen, setIsDemoPopoverOpen] = useState(false);
+  const [isSubscribePopoverOpen, setIsSubscribePopoverOpen] = useState(false);
 
   return (
     <footer
@@ -167,9 +168,36 @@ export default function Footer() {
                     placeholder="Enter your email"
                     className="bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:border-cyan-400"
                   />
-                  <Button className="bg-cyan-500 hover:bg-cyan-400 text-white px-6">
-                    <ArrowRight className="w-5 h-5" />
-                  </Button>
+                  <Popover open={isSubscribePopoverOpen} onOpenChange={setIsSubscribePopoverOpen}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        className="bg-cyan-500 hover:bg-cyan-400 text-white px-6"
+                        onClick={() => {
+                          setIsSubscribePopoverOpen(true);
+                          setTimeout(() => setIsSubscribePopoverOpen(false), 1500);
+                        }}
+                      >
+                        <ArrowRight className="w-5 h-5" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent
+                      className="w-80 bg-[rgba(2,12,27,0.95)] backdrop-blur-xl border border-cyan-500/20 text-white"
+                      side="top"
+                      sideOffset={10}
+                    >
+                      <div className="flex items-start gap-3">
+                        <div className="flex-shrink-0 w-10 h-10 rounded-full bg-cyan-500/10 flex items-center justify-center border border-cyan-500/20">
+                          <svg className="w-5 h-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-white mb-1">Coming Soon!</h4>
+                          <p className="text-sm text-white/70">Newsletter subscriptions will be available shortly.</p>
+                        </div>
+                      </div>
+                    </PopoverContent>
+                  </Popover>
                 </div>
               </div>
             </div>
